@@ -18,6 +18,12 @@ app.get("/api/chat/:id", (req, res) => {
     res.send(singleChat)
 });
 
-const PORT = process.env.PORT || 5100;
+const PORT = process.env.PORT || 5000;
 
-app.listen(PORT, console.log(`server starting on PORT ${PORT}`));
+// // app.listen(PORT, () =>
+//     console.log(`listening on port ${PORT}`)
+//   );
+
+  app.listen(5000, () =>
+    console.log(`listening on port ${5000}`)
+  );
