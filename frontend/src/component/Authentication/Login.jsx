@@ -3,15 +3,16 @@ import { VStack } from "@chakra-ui/layout";
 import { FormControl, FormLabel } from "@chakra-ui/form-control";
 import { Input, InputGroup, InputRightElement } from "@chakra-ui/input";
 import { Button } from "@chakra-ui/react";
+import { useToast } from "@chakra-ui/react";
+import axios from "axios";
 
 const Login = () => {
   const [formData, setFormData] = React.useState({
-    userName: "",
     email: "",
     password: "",
-    confirmPassword: "",
-    pic: "",
   });
+  const [loading, setLoading] = useState(false);
+  const toast = useToast();
 
   function handleChange(event) {
     console.log(event);
@@ -24,24 +25,77 @@ const Login = () => {
     });
   }
 
-  function handleSubmit(event) {
-    event.preventDefault();
-    console.log(formData);
+
+
+  const handleSubmit = () => {
+
   }
 
+  // const handleSubmit = async () => {
+  //   setLoading(true);
+  //   if (!email || !password) {
+  //     toast({
+  //       title: "Please fill all the fields",
+  //       status: "warning",
+  //       duration: 9000,
+  //       isClosable: true,
+  //       position: "bottom",
+  //     });
+  //     setLoading(false);
+  //     return;
+  //   }
+
+  //   console.log(email, password);
+
+  //   try {
+  //     const config = {
+  //       headers: {
+  //         "Content-type": "application/json",
+  //       },
+  //     };
+  //     const { data } = await axios.post(
+  //       "api/user/login",
+  //       { email, password },
+  //       config
+  //     );
+
+  //     toast({
+  //       title: "Login Succesfull",
+  //       status: "Success",
+  //       duration: 9000,
+  //       isClosable: true,
+  //       position: "bottom",
+  //     });
+  //     localStorage.setItem("userInfo", JSON.stringify(data));
+  //     setLoading(false);
+  //   } catch (error) {
+  //     toast({
+  //       title: "Error occured",
+  //       description: error.response.data.message,
+  //       status: "Error",
+  //       duration: 9000,
+  //       isClosable: true,
+  //       position: "bottom",
+  //     });
+  //     setLoading(false);
+  //   }
+  // };
   const [show, setShow] = React.useState(false);
   const clickShow = () => setShow(!show);
 
   return (
-    <VStack spacing='5px'>
-        <FormControl id="userName" isRequired>
-            <FormLabel>Username</FormLabel>
-            <Input
-              placeholder="Enter User Name"
-              onChange={(e) => setName(e.target.value)}>
-              </Input>
-        </FormControl>
-        <FormControl id="password" isRequired>
+    <VStack spacing="5px">
+      <FormControl id="email" isRequired>
+        <FormLabel>Email</FormLabel>
+        <Input
+          placeholder="Enter Your Email"
+          type="text"
+          onChange={handleChange}
+          name="email"
+          value={formData.email}
+        ></Input>
+      </FormControl>
+      <FormControl id="password" isRequired>
         <FormLabel>Password</FormLabel>
         <InputGroup size="md">
           <Input
@@ -63,11 +117,12 @@ const Login = () => {
         width="100%"
         style={{ marginTop: 15 }}
         onClick={handleSubmit}
+        isLoading={loading}
       >
         Submit
       </Button>
     </VStack>
-  )
-}
+  );
+};
 
-export default Login
+export default Login;
