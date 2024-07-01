@@ -9,11 +9,11 @@ const userModel = mongoose.Schema({
       "https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg",},
 }, {timestamp: true});
 
-userSchema.methods.matchPassword = async function (enteredPassword) {
+userModel.methods.matchPassword = async function (enteredPassword) {
     return await bcrypt.compare(enteredPassword, this.password);
   };
   
-userSchema.pre("save", async function (next) {
+userModel.pre("save", async function (next) {
     if (!this.isModified) {
       next();
     }
